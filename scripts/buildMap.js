@@ -1,6 +1,7 @@
 let conf = {
     "serverAddress": "localhost:8080", //Change this to match the address of your OpenToW server
-    "refreshInterval": 10000 //Number of miliseconds between map refreshes
+    "refreshInterval": 10000, //Number of miliseconds between map refreshes
+    "layoutseed": 805525 //Seed for map layout generation
 }
 
 var node_list = [];
@@ -13,11 +14,9 @@ var data = {
     edges: edges
 };
 var options = {
-    "layout":{"randomSeed": null}
+    "layout":{"randomSeed": conf.layoutseed}
 };
 var network = new vis.Network(container, data, {});
-var seed = network.getSeed();
-options.layout.randomSeed = seed;
 network.setOptions(options)
 
 function get_network_map(){
