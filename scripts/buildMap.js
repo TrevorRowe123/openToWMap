@@ -1,3 +1,8 @@
+let conf = {
+    "serverAddress": "localhost:8080", //Change this to match the address of your OpenToW server
+    "refreshInterval": 10000 //Number of miliseconds between map refreshes
+}
+
 var node_list = [];
 var edge_list = [];
 var edges = new vis.DataSet(edge_list);
@@ -20,7 +25,7 @@ function get_network_map(){
     edge_list = [];
 
     var fac_request = new XMLHttpRequest();
-    fac_request.open('GET', '../faction', false);
+    fac_request.open('GET', `http://${conf.serverAddress}/faction`, false);
     fac_request.send(null);
     var fac_response = JSON.parse(fac_request.responseText)
     document.getElementById("redwins").innerHTML = "Red Wins: " + fac_response.Red.wins;
@@ -28,7 +33,7 @@ function get_network_map(){
 
     // create an array with nodes
     var sect_request = new XMLHttpRequest();
-    sect_request.open('GET', '../sector', false);
+    sect_request.open('GET', `http://${conf.serverAddress}/sector`, false);
     sect_request.send(null);
     var response_list = JSON.parse(sect_request.responseText)
     for(var i = 0; i < response_list.length; i++){
@@ -48,7 +53,7 @@ function get_network_map(){
 
     // create an array with edges
     var border_request = new XMLHttpRequest();
-    border_request.open('GET', '../border', false);
+    border_request.open('GET', `http://${conf.serverAddress}/border`, false);
     border_request.send(null);
     edge_response_list = JSON.parse(border_request.responseText);
     for(var i = 0; i < edge_response_list.length; i++){
@@ -71,4 +76,4 @@ function get_network_map(){
 }
 
 get_network_map();
-setInterval(get_network_map, 10000)
+setInterval(get_network_map, conf.refreshInterval)
