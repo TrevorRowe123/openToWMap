@@ -24,7 +24,7 @@ function get_network_map(){
     edge_list = [];
 
     var fac_request = new XMLHttpRequest();
-    fac_request.open('GET', `http://${conf.serverAddress}/faction`, false);
+    fac_request.open('GET', `http://${conf.serverAddress}/faction/all`, false);
     fac_request.send(null);
     var fac_response = JSON.parse(fac_request.responseText)
     document.getElementById("redwins").innerHTML = "Red Wins: " + fac_response.Red.wins;
@@ -32,7 +32,7 @@ function get_network_map(){
 
     // create an array with nodes
     var sect_request = new XMLHttpRequest();
-    sect_request.open('GET', `http://${conf.serverAddress}/sector`, false);
+    sect_request.open('GET', `http://${conf.serverAddress}/sector/all`, false);
     sect_request.send(null);
     var response_list = JSON.parse(sect_request.responseText)
     for(var i = 0; i < response_list.length; i++){
