@@ -26,7 +26,7 @@ function get_network_map(){
     var fac_request = new XMLHttpRequest();
     fac_request.open('GET', `http://${conf.serverAddress}/faction/all`, false);
     fac_request.send(null);
-    var fac_response = JSON.parse(fac_request.responseText)
+    var fac_response = JSON.parse(fac_request.responseText);
     document.getElementById("redwins").innerHTML = "Red Wins: " + fac_response.Red.wins;
     document.getElementById("bluewins").innerHTML = "Blue Wins: " + fac_response.Blue.wins;
 
@@ -34,7 +34,7 @@ function get_network_map(){
     var sect_request = new XMLHttpRequest();
     sect_request.open('GET', `http://${conf.serverAddress}/sector/all`, false);
     sect_request.send(null);
-    var response_list = JSON.parse(sect_request.responseText)
+    var response_list = JSON.parse(sect_request.responseText);
     for(var i = 0; i < response_list.length; i++){
         node_list.push(
             {
@@ -42,7 +42,7 @@ function get_network_map(){
                 "color": response_list[i].owner,
                 "physics": false
             }
-        )
+        );
         if(response_list[i].active){
             node_list[i].shadow = {"enabled": true, "color": response_list[i].owner, "size": 20};
             node_list[i].color = "Purple";
@@ -63,7 +63,7 @@ function get_network_map(){
                 "color":{"inherit":"both"},
                 "smooth":{"enabled":false}
             }
-        )
+        );
     }
     edges = new vis.DataSet(edge_list);
     nodes = new vis.DataSet(node_list);
@@ -75,4 +75,4 @@ function get_network_map(){
 }
 
 get_network_map();
-setInterval(get_network_map, conf.refreshInterval)
+setInterval(get_network_map, conf.refreshInterval);
